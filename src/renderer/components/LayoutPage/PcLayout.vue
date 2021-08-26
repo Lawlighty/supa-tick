@@ -3,16 +3,16 @@
     <div class='pc-layout'>
         <el-container class="pc-layout-container">
             <el-aside  class="pc-layout-aside">
-                <el-menu :default-openeds="['1', '3']">
-                <el-menu-item index="1">
-                    <template slot="title"><i class="el-icon-notebook-2"></i>TODO</template>
-                </el-menu-item>
-                <el-menu-item index="2">
-                    <template slot="title"><i class="el-icon-alarm-clock"></i>番茄钟</template>
-                </el-menu-item>
-                <el-menu-item index="3">
-                    <template slot="title"><i class="el-icon-sunny"></i>每日一汤</template>
-                </el-menu-item>
+                <el-menu :default-active="this.$router.currentRoute.path" :router="true">
+                  <el-menu-item index="/">
+                      <template slot="title"><i class="el-icon-notebook-2"></i>TODO</template>
+                  </el-menu-item>
+                  <el-menu-item index="/pomodoro">
+                      <template slot="title"><i class="el-icon-alarm-clock"></i>番茄钟</template>
+                  </el-menu-item>
+                  <el-menu-item index="/beautifulsoup">
+                      <template slot="title"><i class="el-icon-sunny"></i>每日一汤</template>
+                  </el-menu-item>
                 </el-menu>
             </el-aside>
             
@@ -42,7 +42,7 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import router from 'vue-router'
 export default {
     name: 'pc-layout',
     //import引入的组件需要注入到对象中才能使用
@@ -67,7 +67,7 @@ export default {
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-
+      console.log('$router.path',this.$router)
     },
     //方法集合
     methods: {
@@ -76,7 +76,8 @@ export default {
         },
         handleClose(key, keyPath) {
             console.log(key, keyPath);
-        }
+        },
+
     }
 }
 </script>
@@ -117,6 +118,7 @@ export default {
 } */
 .el-menu{
   background: #001529;
+  height: 100%;
 }
 .main-page{
   /* background: #B3C0D1; */
