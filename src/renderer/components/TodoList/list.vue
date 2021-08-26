@@ -1,29 +1,18 @@
 <template>
   <div class="list" >
-
       <el-card class="box-card" v-for="(item, index) in listData" :key="index">
         <div slot="header" class="clearfix">
             <span>{{item.title}}</span>
             <!-- <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button> -->
         </div>
-        <draggable class="draggable" :list="item.list" group="people" :empty-insert-threshold="500">
+        <draggable class="draggable" :list="item.list" group="people" :empty-insert-threshold="100">
             <transition-group>
                 <div class="draggable-item" v-for="element in item.list" :key="element.id">
-                <list-item :objData="element" :type="item.type"></list-item>
+                <list-item :objData="element" :type="item.type" v-on="$listeners"></list-item>
                 </div>
             </transition-group>
         </draggable>
       </el-card>
-    <!-- <div class="list-group" v-for="(item, index) in listData" :key="index">
-        <div class="list-title">{{item.title}}</div>
-        <draggable class="draggable" :list="item.list" group="people" :empty-insert-threshold="500">
-        <transition-group>
-            <div class="draggable-item" v-for="element in item.list" :key="element.id">
-            <list-item :objData="element" :type="item.type"></list-item>
-            </div>
-        </transition-group>
-        </draggable>
-    </div> -->
   </div>
 </template>
 
@@ -74,6 +63,13 @@ export default {
 }
 .draggable-item{
   margin-bottom: 8px;
+}
+.el-card__body{
+    display: flex;
+}
+.draggable>span{
+    display: flex;
+    flex-wrap: wrap;
 }
         
 </style>

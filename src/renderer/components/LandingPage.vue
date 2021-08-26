@@ -2,7 +2,7 @@
   <div>
     <PcLayout>
       <template slot="current-main-page">
-          <List :listData="todoData"></List>
+          <List :listData="todoData" @closeTag="closeTag"></List>
       </template>
     </PcLayout>
   </div>
@@ -103,8 +103,19 @@
       }
     },
     methods: {
-      open (link) {
-        this.$electron.shell.openExternal(link)
+      closeTag({type, item}){
+        let newtodoData = JSON.parse(JSON.stringify(this.todoData));
+        // 删除 任务项
+        let ListIndex = newtodoData.findIndex((listItem)=>{
+          return listItem.type === type
+        })
+        let itemIndex = newtodoData[ListIndex].list.findIndex((listItem)=>{
+          return listItem.id === item.id
+        })
+        let todoList = newtodoData[ListIndex].list
+        todoList.splice(itemIndex,1)
+        newtodoData[ListIndex].list = todoList;
+        this.todoData = newtodoData;
       }
     }
   }
