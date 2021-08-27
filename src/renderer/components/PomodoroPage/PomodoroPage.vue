@@ -97,7 +97,7 @@
               <el-button :disabled="!!target" @click="initick">初始化</el-button>
             </el-form-item>
           </el-form>
-          <el-image src="/static/gifs/dota2.gif">
+          <el-image src="static/gifs/dota2.gif">
             <div slot="placeholder" class="image-slot">
               加载中<span class="dot">...</span>
             </div>
