@@ -9,7 +9,7 @@
                 alt="每日一图"
                 :src="currentSrc"
                 />
-                <a-card-meta :title="bingImgInfo.startdate">
+                <a-card-meta title="今日美图">
                 <template slot="description">
                     {{bingImgInfo.copyright}}
                 </template>
@@ -55,9 +55,7 @@
             let res = await this.$http.get(
                 `https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1`
             );
-            console.log('getSoup',res.request.response)
-            console.log('getSoup images',res.request.response.images)
-            
+ 
             if ( res&&res.request&&res.request.response){
                 let a = JSON.parse(JSON.stringify(res.request.response));
                 let b = JSON.parse(a);

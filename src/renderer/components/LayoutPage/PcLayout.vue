@@ -11,7 +11,7 @@
                       <template slot="title"><i class="el-icon-alarm-clock"></i>番茄钟</template>
                   </el-menu-item>
                   <el-menu-item index="/beautifulsoup">
-                      <template slot="title"><i class="el-icon-sunny"></i>每日一汤</template>
+                      <template slot="title"><i class="el-icon-sunny"></i>环游世界</template>
                   </el-menu-item>
                 </el-menu>
             </el-aside>
