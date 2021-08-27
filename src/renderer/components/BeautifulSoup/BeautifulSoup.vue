@@ -6,10 +6,11 @@
               <a-card hoverable class="day-img">
                 <img
                 slot="cover"
-                alt="每日一图"
                 :src="currentSrc"
+                alt="今日美图"
+                style="width: 750px"
                 />
-                <a-card-meta :title="bingImgInfo.startdate">
+                <a-card-meta >
                 <template slot="description">
                     {{bingImgInfo.copyright}}
                 </template>
@@ -55,9 +56,7 @@
             let res = await this.$http.get(
                 `https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1`
             );
-            console.log('getSoup',res.request.response)
-            console.log('getSoup images',res.request.response.images)
-            
+ 
             if ( res&&res.request&&res.request.response){
                 let a = JSON.parse(JSON.stringify(res.request.response));
                 let b = JSON.parse(a);
@@ -78,7 +77,7 @@
   body { font-family: 'Source Sans Pro', sans-serif; }
 
 .day-img{
-    width: 720px;
+    width: 750px;
     margin: 0 auto !important;
 }
 </style>

@@ -11,7 +11,7 @@
                       <template slot="title"><i class="el-icon-alarm-clock"></i>番茄钟</template>
                   </el-menu-item>
                   <el-menu-item index="/beautifulsoup">
-                      <template slot="title"><i class="el-icon-sunny"></i>每日一汤</template>
+                      <template slot="title"><i class="el-icon-sunny"></i>环游世界</template>
                   </el-menu-item>
                 </el-menu>
             </el-aside>
@@ -123,6 +123,7 @@ export default {
 .main-page{
   /* background: #B3C0D1; */
       background: #f5f5f5;
+      display:flex !important;
 }
 .left_top_logo{
   width: 60px;

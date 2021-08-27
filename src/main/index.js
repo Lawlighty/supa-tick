@@ -28,14 +28,18 @@ function createWindow() {
     icon: "../../build/icons/tomato.ico",
     height: 600,
     useContentSize: true,
-    width: 1050,
+    width: 1250,
     //不允许用户调整窗口大小
     resizable: false,
     webPreferences: {
       webSecurity: false, // 允许跨域
       nodeIntegration: true, // 浏览器使用node 模块
     },
+  
   });
+  if (process.platform === "darwin") {
+    app.dock.setIcon("../../build/icons/tomato.ico");
+  }
 
   mainWindow.loadURL(winURL);
 

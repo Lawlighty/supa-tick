@@ -43,13 +43,7 @@ export default {
 }
 .box-card{
     flex: 1;
-    min-width: 240px;
-    height: 100%;
-    margin-right: 20px;
-}
-.list-group{
-    float: left;
-    width: 240px;
+    min-width: 200px;
     height: 100%;
     margin-right: 20px;
 }

@@ -58,6 +58,52 @@
             </div>
             </main>
         </div>
+        <div class="container-right">
+          <el-form ref="form" :model="form" label-width="120px" class="input-tick">
+            <el-form-item label="任务时间（分）">
+              <el-select
+                :value="form.task"
+                @change="changeTask"
+                filterable
+                allow-create
+                default-first-option
+                placeholder="请选择文章标签">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="休息时间（分）">
+              <el-select
+                  :value="form.rest"
+                  @change="changeRest"
+                  filterable
+                  allow-create
+                  default-first-option
+                  placeholder="请选择文章标签">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-button :disabled="!!target" type="primary" @click="onSubmit">应用</el-button>
+              <el-button :disabled="!!target" @click="initick">初始化</el-button>
+            </el-form-item>
+          </el-form>
+          <el-image src="/static/gifs/dota2.gif">
+            <div slot="placeholder" class="image-slot">
+              加载中<span class="dot">...</span>
+            </div>
+          </el-image>
+        </div>
+        
       </template>
     </PcLayout>
   </div>
@@ -77,15 +123,47 @@ export default {
   data() {
     return {
       target: 0, // 状态: 0 未开始 1 工作  2 休息
-      workTime: 10, // 工作时间
-      restTime: 3, //休息时间
+      workTime: 100, // 工作时间
+      restTime: 30, //休息时间
       currenttimer: 0, // 显示的时间
       percent: 0, // 百分比
       workTimer: null,
+
+      defaultTask: 15,
+      defaultRest: 15,
+
+      form:{
+        task:15,
+        rest: 15
+      },
+      options: [{
+        value: 15,
+        label: 15
+      }, {
+        value: 20,
+        label: 20
+      }, {
+        value: 30,
+        label: 30
+      }, {
+        value: 45,
+        label: 45
+      }, {
+        value: 60,
+        label: 60
+      }],
     };
+  },
+  beforeDestroy(){
+    if(this.workTimer){
+      this.workTimer.stop();
+    }
+    this.workTimer = null;
   },
   mounted() {
     // this.startWork();
+    this.workTime =  this.form.task * 60;
+    this.restTime =  this.form.rest * 60;
   },
   methods: {
     startTimer(type = "work") {
@@ -127,8 +205,11 @@ export default {
       } else {
         this.percent = Math.floor(((this.restTime - s) / this.restTime) * 100);
       }
+      console.log('ms',ms)
+      console.log('mm',mm)
+      console.log('ss',ss)
 
-      this.currenttimer = `${mm.toString().padStart(2, 0)}:${ss
+      this.currenttimer = `${(mm).toString().padStart(2, 0)}:${ss
         .toString()
         .padStart(2, 0)}`;
     },
@@ -143,7 +224,7 @@ export default {
           _this.startTimer("rest");
         },
         onCancel() {
-          _this.startTimer("work");
+          // _this.startTimer("work");
         },
       });
     },
@@ -159,7 +240,7 @@ export default {
           _this.startTimer("work");
         },
         onCancel() {
-          _this.startTimer("rest");
+          // _this.startTimer("rest");
         },
       });
     },
@@ -170,11 +251,43 @@ export default {
         this.currenttimer = 0; // 显示的时间
         this.percent = 0; // 百分比
       }
-      this.$message.success("取消事务");
+      this.$message.success("取消工作");
     },
     cancel(e) {
       this.$message.error("点击取消");
     },
+
+    onSubmit(){
+      if(!this.form.task || !this.form.task * 1){
+        this.form.task = this.defaultTask;
+      }
+      if(!this.form.rest || !this.form.rest * 1){
+        this.form.rest = this.defaultRest;
+      }
+      this.workTime =  this.form.task * 60;
+      this.restTime =  this.form.rest * 60;
+    },
+
+    initick(){
+      console.log('initick')
+      console.log('this.form',this.form)
+      if(!this.form.task || !this.form.task * 1){
+        this.form.task = this.defaultTask;
+      }
+      if(!this.form.rest || !this.form.rest * 1){
+        this.form.rest = this.defaultRest;
+      }
+      this.workTime =  this.form.task * 60;
+      this.restTime =  this.form.rest * 60;
+    },
+    changeTask(e){
+      this.form.task = e&&(e * 1)?e: this.defaultRest;
+      this.workTime =  this.form.task * 60;
+    },
+    changeRest(e){
+      this.form.rest = e&&(e * 1)?e: this.defaultRest;
+      this.restTime =  this.form.rest * 60;
+    }
   },
 };
 </script>
@@ -259,5 +372,14 @@ main > div {
 .doc button.alt {
   color: #42b983;
   background-color: transparent;
+}
+.input-tick{
+  flex: 1;
+  margin-left: 20px;
+}
+.container-right{
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
 }
 </style>
