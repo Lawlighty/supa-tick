@@ -1,4 +1,4 @@
-# supa-tick
+# supa-tick 基于 Electron-Vue
 
 > 速啪滴答
 
